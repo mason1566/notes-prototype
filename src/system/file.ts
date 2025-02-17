@@ -1,6 +1,6 @@
 class FileDescriptor {
-    private title: string;
-    private extension: string;
+    protected title: string;
+    protected extension: string;
     
     constructor(title: string, extension: string) {
         this.title = title;
