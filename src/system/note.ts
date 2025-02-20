@@ -1,4 +1,4 @@
-import FileDescriptor from "./file";
+import FileDescriptor from "./fileDescriptor";
 
 class Note extends FileDescriptor {
     protected creationDate: Date;

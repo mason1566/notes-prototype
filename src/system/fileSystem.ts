@@ -2,7 +2,7 @@ import * as fs from '@tauri-apps/plugin-fs';
 import * as dialog from '@tauri-apps/plugin-dialog';
 import * as storePlugin from '@tauri-apps/plugin-store';
 import { DirEntry } from '@tauri-apps/plugin-fs';
-import FileDescriptor from './file';
+import FileDescriptor from './fileDescriptor';
 
 // Singleton
 class FileSystem {

@@ -5,7 +5,7 @@ Dependencies:
     - @tauri-apps/plugin-dialog
     - @tauri-apps/plugin-store
     - DirEntry class from @tauri-apps/plugin-fs
-    - FileDescriptor class from src/system/file.ts
+    - FileDescriptor class from src/system/fileDescriptor.ts
 
 FileSystem Class Structure:
 vars -

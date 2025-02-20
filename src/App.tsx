@@ -1,6 +1,6 @@
 import InvokeCommandButton from "./components/InvokeCommandButton.tsx"
 import FileSystem from "./system/fileSystem.ts";
-import FileDescriptor from "./system/file.ts";
+import FileDescriptor from "./system/fileDescriptor.ts";
 import { useState } from 'react';
 
 function App() {
