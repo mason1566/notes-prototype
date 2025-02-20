@@ -24,10 +24,18 @@ class FileSystem {
         return FileSystem.fileSystem;
     }
 
-    // This function reads files from a target directory and returns an array of FileDescriptors
-    public async getFiles(directory: string): Promise<FileDescriptor[]> {
+    // This function reads files from a target directory and returns an array of FileDescriptors. If no directory parameter is given, the function will use the default path from the store api.
+    public async getFiles(directory?: string): Promise<FileDescriptor[]> {
+        let dir: string; // This is the directory path that the function will attempt to search for files in.
         try {
-            let entries = await fs.readDir(directory); // Get directory entries
+            // Determine if directory parameter or default directory should be used:
+            if (directory) {
+                dir = directory;
+            } else {
+                dir = await this.getDefaultDirectory();
+            }
+
+            let entries = await fs.readDir(dir); // Get directory entries
 
             entries = entries.filter(entry => !entry.isDirectory); // Filter out non-files
 
@@ -45,10 +53,18 @@ class FileSystem {
         }
     }
 
-    // This function reads entries (files and directories) from a given directory.
+    // This function reads entries (files and directories) from a given directory. If no directory parameter is given, the function will use the default path from the store api.
     public async getEntries(directory: string): Promise<DirEntry[]> {
+        let dir: string; // This is the directory path that the function will attempt to search for entries in.
         try {
-            const entries = await fs.readDir(directory);
+            // Determine if directory parameter or default directory should be used:
+            if (directory) {
+                dir = directory;
+            } else {
+                dir = await this.getDefaultDirectory();
+            }
+
+            const entries = await fs.readDir(dir);
             return entries;
         }
         catch (err) {
@@ -56,10 +72,18 @@ class FileSystem {
         }
     }
 
-    // This function reads entries from a directory and returns all the folders within the given parent directory. Returns the found directories as a DirEntry array.
-    public async getDirectories(directory: string): Promise<DirEntry[]> {
+    // This function reads entries from a directory and returns all the folders within the given parent directory. Returns the found directories as a DirEntry array. Uses the default directory from the store api if no directory parameter is given.
+    public async getDirectories(directory?: string): Promise<DirEntry[]> {
+        let dir: string; // This is the directory path that the function will attempt to search for directories in.
         try {
-            let entries = await fs.readDir(directory);
+            // Determine if directory parameter or default directory should be used:
+            if (directory) {
+                dir = directory;
+            } else {
+                dir = await this.getDefaultDirectory();
+            }
+            
+            let entries = await fs.readDir(dir); // Read the contents of the folder
             entries = entries.filter(entry => entry.isDirectory); // Filter out non-folders
             return entries;
         }
@@ -82,10 +106,18 @@ class FileSystem {
         return folder;
     }
 
-    // This function attempts to create a file
-    public async createFile(directory: string, file: FileDescriptor): Promise<void> {
+    // This function attempts to create a file. If no directory parameter is given, the function will attempt to use the default directory stored in the plugin-store api.
+    public async createFile(file: FileDescriptor, directory?: string): Promise<void> {
+        let dir: string; // This is the directory path that the function will attempt to create a new file in.
         try {
-            await fs.create(`${directory}/${file.getFileName()}`);
+            // Determine if directory parameter or default directory should be used:
+            if (directory) {
+                dir = directory;
+            } else {
+                dir = await this.getDefaultDirectory();
+            }
+
+            await fs.create(`${dir}/${file.getFileName()}`); // Create the file
         } 
         catch (error) {
             throw new Error(`Error in createFile: ${error}`)
