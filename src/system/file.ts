@@ -8,7 +8,15 @@ class FileDescriptor {
     }
 
     public getFileName(): string {
-        return `${this.title}.${this.extension}`;
+        return this.title + this.extension;
+    }
+
+    public getTitle(): string {
+        return this.title;
+    }
+
+    public getExtension(): string {
+        return this.extension;
     }
 }
 
