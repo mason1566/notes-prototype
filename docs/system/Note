@@ -1,0 +1,21 @@
+The Note object represents a note. This class extends the FileDescriptor class.
+
+Dependencies:
+    - FileDescriptor class from src/system/fileDescriptor.ts
+
+Note Class Structure:
+vars -
+    protected creationDate: Date;
+
+    // inherited variables from FileDescriptor:
+    protected title: string;
+    protected extension: string;
+methods -
+    constructor(title: string, extension: string);
+    public fetchNoteContents(): string;
+    public static fetchNoteContents(note: Note): string;
+
+    // inherited methods from FileDescriptor:
+    public getFileName(): string;
+    public getTitle(): string;
+    public getExtension(): string;
