@@ -94,7 +94,10 @@ class FileSystem {
 
     // This function sets the default directory for app files.
     public async setDefaultDirectory(directory: string) {
+        const store = await storePlugin.load('store.json', { autoSave: false });
+        await store.set('default-dir', directory);
 
+        await store.save();
     }
 
     // This function gets the default directory for app files from the plugin-store.
