@@ -9,7 +9,7 @@ function App() {
   async function button1() {
     try {
       console.log(await fs.getDefaultDirectory());
-      console.log(await fs.getFiles());
+      console.log(await fs.getFilesOfType(".md"));
     } catch (err) { console.log(err) };
   }
 

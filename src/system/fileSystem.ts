@@ -54,7 +54,7 @@ class FileSystem {
     }
 
     // This function reads entries (files and directories) from a given directory. If no directory parameter is given, the function will use the default path from the store api.
-    public async getEntries(directory: string): Promise<DirEntry[]> {
+    public async getEntries(directory?: string): Promise<DirEntry[]> {
         let dir: string; // This is the directory path that the function will attempt to search for entries in.
         try {
             // Determine if directory parameter or default directory should be used:
@@ -125,7 +125,7 @@ class FileSystem {
     }
 
     // This function sets the default directory for app files.
-    public async setDefaultDirectory(directory: string) {
+    public async setDefaultDirectory(directory: string): Promise<void> {
         const store = await storePlugin.load('store.json', { autoSave: false });
         await store.set('default-dir', directory);
 
@@ -173,6 +173,7 @@ class FileSystem {
         }
     }
 
+    // This function attempts to delete a file. Uses the default directory set in the plugin-store api if no directory parameter is given.
     public async deleteFile(file: FileDescriptor, directory?: string): Promise<void> {
         let dir: string; // This is the directory path that the function will attempt to delete the file in.
         try {
@@ -187,6 +188,43 @@ class FileSystem {
         } 
         catch (error) {
             throw new Error(`Error in deleteFile: ${error}`)
+        }
+    }
+
+    // This function updates the contents of a given file. Uses the default directory set in the plugin-store api if no directory parameter is given.
+    public async updateFileContents(file: FileDescriptor, contents: string, directory?: string): Promise<void> {
+        let dir: string; // This is the directory path that the function will attempt to create a new file in.
+        try {
+            // Determine if directory parameter or default directory should be used:
+            if (directory) {
+                dir = directory;
+            } else {
+                dir = await this.getDefaultDirectory();
+            }
+
+            await fs.writeTextFile(`${dir}/${file.getFileName()}`, contents);
+        } 
+        catch (error) {
+            throw new Error(`Error in updateFileContents: ${error}`)
+        }
+    }
+
+    public async getFilesOfType(extension: string, directory?: string): Promise<FileDescriptor[]> {
+        let dir: string; // This is the directory path that the function will attempt to create a new file in.
+        try {
+            // Determine if directory parameter or default directory should be used:
+            if (directory) {
+                dir = directory;
+            } else {
+                dir = await this.getDefaultDirectory();
+            }
+
+            let files: FileDescriptor[] = await this.getFiles();
+            let filesOfType: FileDescriptor[] = files.filter(file => file.getExtension() === extension);
+            return filesOfType;
+        } 
+        catch (error) {
+            throw new Error(`Error in getFilesOfType: ${error}`)
         }
     }
 }
