@@ -110,6 +110,17 @@ class FileSystem {
         }
         return defaultDirectory;
     }
+
+    // This function is used to test whether a default directory is set in the plugin-store api.
+    public async isDefaultDirectorySet(): Promise<boolean> {
+        const store = await storePlugin.load('store.json', { autoSave: false });
+        let defaultDirectory = await store.get<string>('default-dir');
+
+        if (defaultDirectory) {
+            return true;
+        }
+        return false;
+    }
 }
 
 export default FileSystem;
