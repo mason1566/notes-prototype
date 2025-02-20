@@ -154,7 +154,8 @@ class FileSystem {
         return false;
     }
 
-    public async getFileContents(file: FileDescriptor, directory?: string): Promise<string> {
+    // This function fetches the contents of a given file. Uses the default directory set in the plugin-store api if no directory parameter is given.
+    public async fetchFileContents(file: FileDescriptor, directory?: string): Promise<string> {
         let dir: string; // This is the directory path that the function will attempt to create a new file in.
         try {
             // Determine if directory parameter or default directory should be used:
@@ -168,7 +169,24 @@ class FileSystem {
             return fileContents;
         } 
         catch (error) {
-            throw new Error(`Error in getFileContents: ${error}`)
+            throw new Error(`Error in fetchFileContents: ${error}`)
+        }
+    }
+
+    public async deleteFile(file: FileDescriptor, directory?: string): Promise<void> {
+        let dir: string; // This is the directory path that the function will attempt to delete the file in.
+        try {
+            // Determine if directory parameter or default directory should be used:
+            if (directory) {
+                dir = directory;
+            } else {
+                dir = await this.getDefaultDirectory();
+            }
+
+            await fs.remove(`${dir}/${file.getFileName()}`);
+        } 
+        catch (error) {
+            throw new Error(`Error in deleteFile: ${error}`)
         }
     }
 }

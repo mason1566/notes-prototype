@@ -15,7 +15,7 @@ function App() {
 
   async function button2() {
     try {
-      console.log(await fs.getFileContents(new FileDescriptor("first_note", ".md")));
+      console.log(await fs.fetchFileContents(new FileDescriptor("first_note", ".md")));
     } catch (err) { console.log(err) };
   }
 
