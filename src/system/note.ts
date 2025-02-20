@@ -1,16 +1,22 @@
-import FileDescriptor from "./fileDescriptor";
-
-class Note extends FileDescriptor {
+class Note {
+    protected title: string;
+    protected extension: string;
+    
     constructor(title: string, extension: string) {
-        super(title, extension);
+        this.title = title;
+        this.extension = extension;
     }
 
-    public fetchNoteContents(): string {
-        return "TODO";
+    public getFileName(): string {
+        return this.title + this.extension;
     }
 
-    public static fetchNoteContents(note: Note): string {
-        return note.fetchNoteContents();
+    public getTitle(): string {
+        return this.title;
+    }
+
+    public getExtension(): string {
+        return this.extension;
     }
 }
 
