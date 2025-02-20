@@ -153,6 +153,24 @@ class FileSystem {
         }
         return false;
     }
+
+    public async getFileContents(file: FileDescriptor, directory?: string): Promise<string> {
+        let dir: string; // This is the directory path that the function will attempt to create a new file in.
+        try {
+            // Determine if directory parameter or default directory should be used:
+            if (directory) {
+                dir = directory;
+            } else {
+                dir = await this.getDefaultDirectory();
+            }
+
+            const fileContents: string = await fs.readTextFile(`${dir}/${file.getFileName()}`);
+            return fileContents;
+        } 
+        catch (error) {
+            throw new Error(`Error in getFileContents: ${error}`)
+        }
+    }
 }
 
 export default FileSystem;

@@ -1,5 +1,6 @@
 import InvokeCommandButton from "./components/InvokeCommandButton.tsx"
 import FileSystem from "./system/fileSystem.ts";
+import FileDescriptor from "./system/file.ts";
 import { useState } from 'react';
 
 function App() {
@@ -14,8 +15,7 @@ function App() {
 
   async function button2() {
     try {
-      await fs.setDefaultDirectory(await fs.openDirectoryDialog());
-      console.log(await fs.getDefaultDirectory());
+      console.log(await fs.getFileContents(new FileDescriptor("first_note", ".md")));
     } catch (err) { console.log(err) };
   }
 
