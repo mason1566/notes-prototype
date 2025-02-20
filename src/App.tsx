@@ -8,6 +8,7 @@ function App() {
   async function button1() {
     try {
       console.log(await fs.getDefaultDirectory());
+      console.log(await fs.getFiles());
     } catch (err) { console.log(err) };
   }
 
