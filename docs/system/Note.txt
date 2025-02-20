@@ -5,8 +5,6 @@ Dependencies:
 
 Note Class Structure:
 vars -
-    protected creationDate: Date;
-
     // inherited variables from FileDescriptor:
     protected title: string;
     protected extension: string;
