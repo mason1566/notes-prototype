@@ -209,6 +209,7 @@ class FileSystem {
         }
     }
 
+    // This function is used to fetch files with a certain extension. Uses the default directory set in the store api if no directory parameter is given.
     public async getFilesOfType(extension: string, directory?: string): Promise<FileDescriptor[]> {
         let dir: string; // This is the directory path that the function will attempt to create a new file in.
         try {
@@ -219,7 +220,7 @@ class FileSystem {
                 dir = await this.getDefaultDirectory();
             }
 
-            let files: FileDescriptor[] = await this.getFiles();
+            let files: FileDescriptor[] = await this.getFiles(dir);
             let filesOfType: FileDescriptor[] = files.filter(file => file.getExtension() === extension);
             return filesOfType;
         } 
