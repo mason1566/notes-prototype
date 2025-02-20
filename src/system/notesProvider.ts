@@ -16,6 +16,14 @@ class NotesProvider {
         return NotesProvider.notesProvider;
     }
 
+    // This function returns the singleton instance of the NotesProvider class
+    public static getNotesProvider(): NotesProvider {
+        if (!NotesProvider.notesProvider) {
+            NotesProvider.notesProvider = new NotesProvider();
+        }
+        return NotesProvider.notesProvider;
+    }
+
     // This function fetches notes from the default directory.
     public async fetchNotes(extension: string=".md"): Promise<Note[]> {
         try {
@@ -135,3 +143,5 @@ class NotesProvider {
         }
     }
 }
+
+export default NotesProvider;

@@ -12,13 +12,14 @@ vars -
     protected static notesProvider: NotesProvider | undefined;
 methods -
     private constructor();
+    public static getNotesProvider(): NotesProvider;
+    public convertFileNameToNote(fileName: string): Note;
     public async fetchNotes(extension: string=".md"): Promise<Note[]>;
     public async setDefaultDirectory(directory: string): Promise<void>;
     public async getDefaultDirectory(): Promise<string>;
     public async isDefaultDirectorySet(): Promise<boolean>;
     public async getOrSetDefaultDirectoryPath(): Promise<string>;
     public async openDirectoryDialog(): Promise<string>;
-    public convertFileNameToNote(fileName: string): Note;
     public async fetchNoteContents(note: Note): Promise<string>;
     public async writenoteContents(note: Note, contents: string): Promise<void>;
     public async createNote(note: Note): Promise<void>;
