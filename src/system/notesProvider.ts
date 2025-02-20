@@ -124,4 +124,14 @@ class NotesProvider {
             throw new Error(`Error in writeNoteContents: ${err}`);
         }
     }
+
+    public async createNote(note: Note): Promise<void> {
+        try {
+            let dir: string = await this.getDefaultDirectory();
+            await fs.create(`${dir}/${note.getFileName()}`); // create the note
+        }
+        catch (err) {
+            throw new Error(`Error in createNote: ${err}`);
+        }
+    }
 }
