@@ -8,10 +8,7 @@ function InvokeCommandButton() {
 
     async function invokeCommand() {
         try {
-            const directory = await fs.openDirectoryDialog();
-            await fs.createFile(directory, new FileDescriptor("hi", ".hi"));
-            const files = await fs.getFiles(directory);
-            console.log(files);
+            console.log(await fs.getDefaultDirectory());
         } 
         catch (err) {
             console.log(err);

@@ -1,6 +1,6 @@
 import * as fs from '@tauri-apps/plugin-fs';
 import * as dialog from '@tauri-apps/plugin-dialog';
-import * as store from '@tauri-apps/plugin-store';
+import * as storePlugin from '@tauri-apps/plugin-store';
 import { DirEntry } from '@tauri-apps/plugin-fs';
 import FileDescriptor from './file';
 
@@ -90,6 +90,22 @@ class FileSystem {
         catch (error) {
             throw new Error(`Error in createFile: ${error}`)
         }
+    }
+
+    // This function sets the default directory for app files.
+    public async setDefaultDirectory(directory: string) {
+
+    }
+
+    // This function gets the default directory for app files from the plugin-store.
+    public async getDefaultDirectory(): Promise<string> {
+        const store = await storePlugin.load('store.json', { autoSave: false });
+        let defaultDirectory = await store.get<string>('default-dir');
+
+        if (!defaultDirectory) {
+            throw new Error(`Error in getDefaultDirectory: No default directory is set.`)
+        }
+        return defaultDirectory;
     }
 }
 
