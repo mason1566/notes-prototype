@@ -10,8 +10,6 @@ vars -
     protected extension: string;
 methods -
     constructor(title: string, extension: string);
-    public fetchNoteContents(): string;
-    public static fetchNoteContents(note: Note): string;
 
     // inherited methods from FileDescriptor:
     public getFileName(): string;
