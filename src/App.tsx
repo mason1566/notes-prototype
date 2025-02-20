@@ -17,9 +17,14 @@ function App() {
     })();
   }, []);
 
-  // let view = (currentNote == null) ? <SearchView notes={notes}/> : <h1>Hi</h1>
   return (
-    <SearchView notes={notes}/>
+    <>
+      {
+        (!currentNote)
+        ? <SearchView notes={notes} setCurrentNote={(note: Note) => setCurrentNote(note)} />
+        : <h1>{currentNote.getFileName()}</h1>
+      }
+    </>
   );
 }
 
